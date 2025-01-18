@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"runtime/pprof"
 	"strings"
 	"time"
 
@@ -17,7 +18,7 @@ import (
 
 var (
 	// Scan options
-	hostConcurrency uint = 255
+	hostConcurrency uint = 256
 	portConcurrency uint = 100
 	timeoutMs       uint = 3000
 	retransmissions uint = 2
@@ -50,6 +51,10 @@ var (
 	socks5User     string
 	socks5Password string
 	socks5Timeout  uint = 3000
+
+	// [dev] Debuggging
+	cpuProfileOutputFileName string
+	memProfileOutputFileName string
 
 	// Constraints
 	supportedLogFormats = map[string]bool{
@@ -106,6 +111,10 @@ func init() {
 	rootCmd.Flags().BoolVarP(&trace, "trace", "T", trace, "Enable trace logging (Very noisy!)")
 	rootCmd.Flags().BoolVarP(&quiet, "quiet", "q", quiet, "Disable info logging")
 	rootCmd.Flags().BoolVarP(&silent, "silent", "s", silent, "Disable ALL logging")
+
+	// [dev] Debugging
+	rootCmd.Flags().StringVar(&cpuProfileOutputFileName, "cpu-profile", cpuProfileOutputFileName, "Output CPU performance results to file")
+	rootCmd.Flags().StringVar(&memProfileOutputFileName, "mem-profile", memProfileOutputFileName, "Output memory performance results to file")
 }
 
 var rootCmd = &cobra.Command{
@@ -127,6 +136,28 @@ var rootCmd = &cobra.Command{
 		var logFile *os.File
 		var outputFlags int = os.O_WRONLY | os.O_CREATE
 		var logFileFlags int = os.O_WRONLY | os.O_CREATE | os.O_APPEND
+
+		if cpuProfileOutputFileName != "" {
+			if cpuFile, err := os.Create(cpuProfileOutputFileName); err == nil {
+				pprof.StartCPUProfile(cpuFile)
+				defer pprof.StopCPUProfile() // Stop profiling when RunE (Cobra) exits
+
+			} else {
+				return fmt.Errorf("could not open CPU profile output file for writing: %v", err)
+			}
+		}
+
+		if memProfileOutputFileName != "" {
+			if memFile, err := os.Create(memProfileOutputFileName); err == nil {
+
+				defer func(f *os.File) { // Stop profiling when RunE (Cobra) exits
+					pprof.WriteHeapProfile(f)
+					f.Close()
+				}(memFile)
+			} else {
+				return fmt.Errorf("could not open memory profile output file for writing: %v", err)
+			}
+		}
 
 		outputFormat = strings.ToLower(outputFormat)
 
