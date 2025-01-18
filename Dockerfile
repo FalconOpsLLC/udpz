@@ -4,7 +4,7 @@ LABEL builder="true"
 WORKDIR /go/src/
 
 COPY cmd/ cmd/
-COPY pkg/ pkg/
+COPY internal/ internal/
 COPY main.go go.mod go.sum ./
 
 ENV CGO_ENABLED=0
