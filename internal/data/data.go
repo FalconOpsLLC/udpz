@@ -1053,6 +1053,7 @@ var (
 			Ports: []uint16{
 				443,  // HTTPS
 				2221, // ENIP over DTLS
+				3391, // Remote Desktop Gateway
 				4433,
 				5061,
 				5349,
@@ -1064,12 +1065,6 @@ var (
 					Name:        "DTLS client hello",
 					Service:     "dtls",
 					EncodedData: "Fv7/AAAAAAAAAAAAwAEAALQAAAAAAAAAtP79+Cy0aiJvA+Bs0BWn891pJkw5IbKS1EQIvqHUgDv3g/UAAAA4wCzAMACfzKnMqMyqwCvALwCewCTAKABrwCPAJwBnwArAFAA5wAnAEwAzAJ0AnAA9ADwANQAvAP8BAABSAAsABAMAAQIACgAMAAoAHQAXAB4AGQAYACMAAAAWAAAAFwAAAA0AKgAoBAMFAwYDCAcICAgJCAoICwgECAUIBgQBBQEGAQMDAwEDAgQCBQIGAg==",
-				},
-				{
-					Slug:        "dtls:app-data",
-					Name:        "DTLS application data",
-					Service:     "dtls",
-					EncodedData: "F/79AAEAAAAAAAEAHKdb4KseQJxMd5QKc/yEKb4NWR+dZoqvdu3y90k=",
 				},
 			},
 			Tags: []string{
