@@ -38,6 +38,8 @@ func (sc *UdpProbeScanner) ResolveTargetLine(targetSource string, hosts chan Hos
 	if ip := net.ParseIP(targetSource); ip != nil {
 		// If target can be parsed as IP address
 
+		target.Type = "IP"
+
 		sc.Logger.Debug().
 			Str("target", target.String()).
 			IPAddr("ip", ip).
