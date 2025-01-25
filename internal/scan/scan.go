@@ -50,13 +50,15 @@ func (sc *UdpProbeScanner) Length() int {
 // TODO: ctx
 func (sc *UdpProbeScanner) scanTask(host Host, port uint16, payload []byte) (result PortResult, err error) {
 
-	sc.Logger.Trace().
-		Str("function", "(*UdpProbeScanner).scanTask(Host, uint16, []byte) (PortResult, error)").
-		Dict("arguments", zerolog.Dict().
-			Interface("host", host).
-			Uint16("port", port).
-			Bytes("payload", payload)).
-		Msg("(*UdpProbeScanner).scanTask")
+	/*
+		sc.Logger.Trace().
+			Str("function", "(*UdpProbeScanner).scanTask(Host, uint16, []byte) (PortResult, error)").
+			Dict("arguments", zerolog.Dict().
+				Interface("host", host).
+				Uint16("port", port).
+				Bytes("payload", payload)).
+			Msg("(*UdpProbeScanner).scanTask")
+	*/
 
 	var conn net.Conn
 
@@ -65,20 +67,24 @@ func (sc *UdpProbeScanner) scanTask(host Host, port uint16, payload []byte) (res
 		address := fmt.Sprintf("%s:%d", host.Host, port)
 
 		if sc.useProxy {
-			sc.Logger.Trace().
-				Str("function", "(*socks5.Client).Dial").
-				Str("proxy", sc.proxy.Server). //sc.proxy.Server).
-				Str("transport", transport).
-				Str("address", address).
-				Msg("(*socks5.Client).Dial(...)")
+			/*
+				sc.Logger.Trace().
+					Str("function", "(*socks5.Client).Dial").
+					Str("proxy", sc.proxy.Server). //sc.proxy.Server).
+					Str("transport", transport).
+					Str("address", address).
+					Msg("(*socks5.Client).Dial(...)")
+			*/
 
 			conn, err = sc.proxy.Dial(transport, address)
 		} else {
-			sc.Logger.Trace().
-				Str("function", "net.Dial").
-				Str("transport", transport).
-				Str("address", address).
-				Msg("net.Dial(...)")
+			/*
+				sc.Logger.Trace().
+					Str("function", "net.Dial").
+					Str("transport", transport).
+					Str("address", address).
+					Msg("net.Dial(...)")
+			*/
 
 			conn, err = net.Dial(transport, address)
 		}
@@ -88,29 +94,43 @@ func (sc *UdpProbeScanner) scanTask(host Host, port uint16, payload []byte) (res
 				var response []byte
 				var readLen int
 
-				sc.Logger.Trace().
-					Str("type", "(net.Conn).write").
-					Str("transport", transport).
-					Str("address", address).
-					Bytes("data", payload).
-					Msg("(net.Conn).Write(data)")
+				/*
+					sc.Logger.Trace().
+						Str("type", "(net.Conn).write").
+						Str("transport", transport).
+						Str("address", address).
+						Bytes("data", payload).
+						Msg("(net.Conn).Write(data)")
+				*/
 
 				conn.Write(payload)
 
 				responseBuffer := make([]byte, RESPONSE_MAX_LEN)
-				readLen, err = conn.Read(responseBuffer)
-				response = responseBuffer[:readLen]
-				responseBuffer = nil
 
-				sc.Logger.Trace().
-					Str("type", "connection.close").
-					Str("transport", transport).
-					Str("address", address).
-					Bytes("data", response).
-					Msg("(net.Conn).Close()")
+				if readLen, err = conn.Read(responseBuffer); err != nil {
+					if strings.Contains(err.Error(), "read: no route to host") {
+						sc.Logger.Debug().
+							Err(err).
+							Msg("Resource limit reached")
+						time.Sleep(10 * time.Millisecond)
+						continue
+					}
+
+				} else {
+					response = responseBuffer[:readLen]
+					responseBuffer = nil
+				}
+				/*
+					sc.Logger.Trace().
+						Str("type", "connection.close").
+						Str("transport", transport).
+						Str("address", address).
+						Bytes("data", response).
+						Msg("(net.Conn).Close()")
+				*/
 
 				if terr := conn.Close(); terr != nil {
-					sc.Logger.Trace().
+					sc.Logger.Debug().
 						Stack().
 						Err(terr).
 						Str("transport", transport).
@@ -142,16 +162,18 @@ func (sc *UdpProbeScanner) scanTask(host Host, port uint16, payload []byte) (res
 		}
 	}
 
-	sc.Logger.Trace().
-		Str("function", "(*UdpProbeScanner).scanTask(Host, uint16, []byte) (PortResult, error)").
-		Dict("arguments", zerolog.Dict().
-			Interface("host", host).
-			Uint16("port", port).
-			Bytes("payload", payload)).
-		Dict("return", zerolog.Dict().
-			AnErr("err", err).
-			Interface("result", result)).
-		Msg("return (*UdpProbeScanner).scanTask")
+	/*
+		sc.Logger.Trace().
+			Str("function", "(*UdpProbeScanner).scanTask(Host, uint16, []byte) (PortResult, error)").
+			Dict("arguments", zerolog.Dict().
+				Interface("host", host).
+				Uint16("port", port).
+				Bytes("payload", payload)).
+			Dict("return", zerolog.Dict().
+				AnErr("err", err).
+				Interface("result", result)).
+			Msg("return (*UdpProbeScanner).scanTask")
+	*/
 	return
 }
 
