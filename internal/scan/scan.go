@@ -16,12 +16,12 @@ import (
 
 func (sc *UdpProbeScanner) handleResult(pr PortResult) {
 
-	hostString := pr.Host.String()
+	hostString := pr.Host.Host.String()
 
 	resultLog := sc.Logger.With().
 		Str("target", pr.Host.Target.String()).
-		Str("host", hostString).
-		Int("port", int(pr.Port)).
+		IPAddr("host", pr.Host.Host).
+		Uint16("port", pr.Port).
 		Str("service", pr.Service.Slug).
 		Str("probe", pr.Probe.Slug).
 		Logger()
@@ -64,7 +64,7 @@ func (sc *UdpProbeScanner) scanTask(host Host, port uint16, payload []byte) (res
 
 	for {
 		transport := "udp"
-		address := fmt.Sprintf("%s:%d", host.Host, port)
+		address := fmt.Sprintf("%s:%d", host.String(), port)
 
 		if sc.useProxy {
 			/*
@@ -245,6 +245,7 @@ func NewUdpProbeScanner(logger *zerolog.Logger, broker data.UdpDataBroker, scanA
 	sc.resultsLive = make(chan PortResult)
 	sc.resultsMap = make(map[string]map[uint16][]PortResult)
 
+	sc.scanAllAddresses = scanAllAddresses
 	sc.HostConcurrency = hostConcurrency
 	sc.PortConcurrency = portConcurrency
 	sc.Retransmissions = retransmissions

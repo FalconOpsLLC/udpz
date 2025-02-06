@@ -55,6 +55,10 @@ type Host struct {
 func (host *Host) String() string {
 	if host.hostString == "" {
 		host.hostString = host.Host.String()
+
+		if host.Host.To16() != nil {
+			host.hostString = fmt.Sprintf("[%s]", host.hostString)
+		}
 	}
 	return host.hostString
 }
