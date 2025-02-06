@@ -22,14 +22,6 @@ func nextIP(ip net.IP, inc uint) net.IP {
 
 func (sc *UdpProbeScanner) ResolveTargetLine(targetSource string, hosts chan Host) (ok bool) {
 
-	sc.Logger.Trace().
-		Str("type", "call").
-		Str("function", "(*UdpProbeScanner).ResolveTargetLine").
-		Dict("arguments", zerolog.Dict().
-			Str("targetSource", targetSource).
-			Interface("hosts", hosts)).
-		Msg("(*UdpProbeScanner).ResolveTargetLine(...)")
-
 	var target Target
 	//var host Host
 
@@ -84,6 +76,11 @@ func (sc *UdpProbeScanner) ResolveTargetLine(targetSource string, hosts chan Hos
 
 			for _, ip := range ips {
 
+				sc.Logger.Debug().
+					Str("target", targetSource).
+					IPAddr("ip", ip).
+					Msg("Queueing host")
+
 				hosts <- Host{
 					Target: target,
 					Host:   ip,
@@ -96,16 +93,6 @@ func (sc *UdpProbeScanner) ResolveTargetLine(targetSource string, hosts chan Hos
 			ok = true
 		}
 	}
-
-	sc.Logger.Trace().
-		Str("type", "return").
-		Str("function", "(*UdpProbeScanner).ResolveTargetLine").
-		Dict("arguments", zerolog.Dict().
-			Str("targetSource", targetSource).
-			Interface("hosts", hosts)).
-		Dict("return", zerolog.Dict().
-			Bool("ok", ok)).
-		Msg("return <- (*UdpProbeScanner).ResolveTargetLine()")
 	return
 }
 
@@ -120,10 +107,6 @@ func (sc *UdpProbeScanner) ResolveTarget(targetSource string, hosts chan Host) (
 		Msg("(*UdpProbeScanner).ResolveTarget(...)")
 
 	if sc.ResolveTargetLine(targetSource, hosts) {
-
-		sc.Logger.Debug().
-			Str("target", targetSource).
-			Msg("Target resolved")
 
 	} else if _, err := os.Stat(targetSource); err == nil {
 
