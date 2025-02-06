@@ -83,7 +83,7 @@ var (
 		},
 		"winframe": {
 			Slug:        "winframe",
-			NameShort:   "WinFrame",
+			NameShort:   "Citrix WinFrame",
 			Name:        "Citrix WinFrame Remote Desktop Server",
 			Description: `Citrix WinFrame is an adapted version of Windows NT that allows multiple clients running MS-DOS or Microsoft Windows to connect to a centralized server and access applications over a network. The Remote Desktop component for WinFrame eventually evolved into the Remote Desktop Services component in Windows`,
 			Ports: []uint16{
@@ -1314,12 +1314,12 @@ var (
 					Service:     "profinet-cm",
 					EncodedData: "BAAgABAAAAAAAAAAAAAAAAAAAAAAAAAACIOv4R9dyRGRpAgAKxSg+m4xmvUxmqNZ9ZoIACf1xjYAAAAAAwAAAMgrAAACAP////9MAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAQCg3pds0RGCcQCgJELffQEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAA",
 				},
-				{
+				/*{
 					Slug:        "profinet-cm:read-implicit",
 					Name:        "PROFInet Read Implicit request",
 					Service:     "profinet-cm",
 					EncodedData: "BAAIABAAAAAAAKDel2zREYJxAAEAAwFaAQCg3pds0RGCcQCgJELffduruuwdAFRDslALAWMKuv0AAAAAAQAAAAAAAAAFAP////9UAAAAAABAgAAAQAAAAECAAAAAAAAAQAAAAAAJADwBAAAKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAD4QAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
-				},
+				},*/
 			},
 			Tags: []string{
 				"ics",
