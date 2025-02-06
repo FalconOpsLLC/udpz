@@ -32,6 +32,11 @@ func (sc *UdpProbeScanner) SaveTable(format string, output *os.File) {
 	resultsTable := table.NewWriter()
 	resultsTable.AppendHeader(table.Row{"Host", "Transport", "Port", "State", "Service", "Probes"})
 	resultsTable.SortBy([]table.SortBy{{Name: "Host"}, {Name: "Port", Mode: table.AscNumeric}})
+	probeNameSeparator := ", "
+
+	if format == "csv" {
+		probeNameSeparator = "|"
+	}
 
 	for host, ports := range sc.resultsMap {
 		for port, results := range ports {
@@ -49,7 +54,7 @@ func (sc *UdpProbeScanner) SaveTable(format string, output *os.File) {
 
 				for _, result := range results {
 					if stat, ok := probeNamesMap[result.Probe.Slug]; !(ok && stat) {
-						probeNames = append(probeNames, result.Probe.Name)
+						probeNames = append(probeNames, result.Probe.Slug)
 						probeNamesMap[result.Probe.Slug] = true
 					}
 				}
@@ -59,7 +64,7 @@ func (sc *UdpProbeScanner) SaveTable(format string, output *os.File) {
 					port,
 					"OPEN",
 					service,
-					strings.Join(probeNames, "|"),
+					strings.Join(probeNames, probeNameSeparator),
 				})
 			}
 		}
