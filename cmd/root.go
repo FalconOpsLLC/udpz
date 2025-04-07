@@ -8,8 +8,8 @@ import (
 	"strings"
 	"time"
 
-	"udpz/internal/data"
-	"udpz/internal/scan"
+	"github.com/FalconOpsLLC/udpz/internal/data"
+	"github.com/FalconOpsLLC/udpz/internal/scan"
 
 	"github.com/rs/zerolog"
 	"github.com/spf13/cobra"
