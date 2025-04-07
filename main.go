@@ -1,7 +1,7 @@
 package main
 
 import (
-	"udpz/cmd"
+	"github.com/FalconOpsLLC/udpz/cmd"
 )
 
 func main() {

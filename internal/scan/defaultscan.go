@@ -4,7 +4,7 @@ import (
 	"encoding/base64"
 	"strings"
 	"sync"
-	"udpz/internal/data"
+	"github.com/FalconOpsLLC/udpz/internal/data"
 )
 
 func (sc *UdpProbeScanner) DefaultScan(hostWg *sync.WaitGroup, hosts chan Host, services map[string]data.UdpService) (err error) {

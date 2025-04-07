@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net"
 	"time"
-	"udpz/internal/data"
+	"github.com/FalconOpsLLC/udpz/internal/data"
 
 	"github.com/rs/zerolog"
 	"github.com/txthinking/socks5"

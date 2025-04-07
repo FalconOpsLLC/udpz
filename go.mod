@@ -1,4 +1,4 @@
-module udpz
+module github.com/FalconOpsLLC/udpz
 
 go 1.18
 
