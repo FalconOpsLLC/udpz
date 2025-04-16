@@ -972,6 +972,32 @@ var (
 				"https://wikipedia.org/wiki/Kerberos_(protocol)",
 			},
 		},
+		"knx": {
+			Slug:        "knx",
+			NameShort:   "KNX",
+			Name:        "KNX Gateway Discovery",
+			Description: "Discovers KNX gateways by sending a KNX Search Request on UDP port 3671. Gateways respond with a Search Response containing gateway details.",
+			Ports: []uint16{
+				3671,
+			},
+			Probes: []UdpProbe{
+				{
+					Slug:        "knx:search",
+					Name:        "KNX Search Request",
+					Service:     "knx",
+					EncodedData: "BhACAwAOCAHAqGQN8Q8=",
+				},
+			},
+			Tags: []string{
+				"iot",
+				"automation",
+				"knx",
+			},
+			References: []string{
+				"DIN EN 13321-2",
+				"Source: knx-gateway-discover Nmap script",
+			},
+		},
 		"lantronix": {
 			Slug:        "lantronix",
 			NameShort:   "Lantronix",
