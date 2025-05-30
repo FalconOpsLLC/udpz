@@ -1368,6 +1368,31 @@ var (
 				"https://github.com/ITI/ICS-Security-Tools/blob/master/pcaps/profinet/profinet.pcap",
 			},
 		},
+		"mqtt-sn": {
+			Slug:        "mqtt-sn",
+			NameShort:   "MQTT-SN",
+			Name:        "MQTT-SN Discovery",
+			Description: "UDP-based MQTT-SN (Sensor Network) protocol for lightweight publish/subscribe messaging on constrained devices.",
+			Ports: []uint16{
+				1884,
+				1885,
+			},
+			Probes: []UdpProbe{
+				{
+					Slug:        "mqtt-sn:searchgw",
+					Name:        "MQTT-SN SEARCHGW",
+					Service:     "mqtt-sn",
+					EncodedData: "AwEB", // [0x03, 0x01, 0x01]: Length=3, MsgType=SEARCHGW(1), Radius=1
+				},
+			},
+			Tags: []string{
+				"iot",
+			},
+			References: []string{
+				"https://docs.oasis-open.org/mqtt/mqtt-sn/v1.2/mqtt-sn-v1.2.html",
+			},
+		},
+
 		/*
 			"epl": {
 				Slug:        "epl",
