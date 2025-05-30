@@ -751,6 +751,7 @@ var (
 			Tags: []string{
 				"common",
 				"internet",
+				"ics",
 			},
 			References: []string{
 				"https://www.speedguide.net/port.php?port=161",
@@ -975,27 +976,34 @@ var (
 		"knx": {
 			Slug:        "knx",
 			NameShort:   "KNX",
-			Name:        "KNX Gateway Discovery",
-			Description: "Discovers KNX gateways by sending a KNX Search Request on UDP port 3671. Gateways respond with a Search Response containing gateway details.",
+			Name:        "KNXNet/IP (Konnex)",
+			Description: "KNXnet/IP extends the KNX (Konnex) protocol to IP networks allowing for remote access to KNX installations over Ethernet/WiFi and integration with IP-based systems",
 			Ports: []uint16{
 				3671,
 			},
 			Probes: []UdpProbe{
+				/*
+					{
+						Slug: "knx:search",
+						Name: "KNX Search Request",
+						Service: "knx",
+						EncodedData: "BhACAwAOCAHAqGQN8Q8=",
+					},
+				*/
 				{
-					Slug:        "knx:search",
-					Name:        "KNX Search Request",
+					Slug:        "knx:tunnel",
+					Name:        "KNX tunnel connect request",
 					Service:     "knx",
-					EncodedData: "BhACAwAOCAHAqGQN8Q8=",
+					EncodedData: "BhACBQAaCAEAAAAAAAAIAQAAAAAAAAQEAgA=",
 				},
 			},
 			Tags: []string{
 				"iot",
-				"automation",
-				"knx",
+				"ics",
 			},
 			References: []string{
-				"DIN EN 13321-2",
-				"Source: knx-gateway-discover Nmap script",
+				"https://github.com/alexander-zimmermann/tcpdump/blob/main/knx.pcap",
+				"https://en.wikipedia.org/wiki/KNX",
 			},
 		},
 		"lantronix": {
@@ -1037,6 +1045,12 @@ var (
 					Name:        "IKE generic",
 					Service:     "ike",
 					EncodedData: "W15kwD6ZtREAAAAAAAAAAAEQAgAAAAAAAAABUAAAATQAAAABAAAAAQAAASgBAQAIAwAAJAEB",
+				},
+				{
+					Slug:        "ike:malformed",
+					Name:        "IKE malformed request",
+					Service:     "ike",
+					EncodedData: "AA==",
 				},
 			},
 			Tags: []string{
