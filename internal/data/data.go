@@ -1392,6 +1392,30 @@ var (
 				"https://docs.oasis-open.org/mqtt/mqtt-sn/v1.2/mqtt-sn-v1.2.html",
 			},
 		},
+		"modbus": {
+			Slug:        "modbus",
+			NameShort:   "Modbus",
+			Name:        "Modbus over UDP",
+			Description: `Modbus protocol over UDP for connectionless access to registers and coils on industrial devices such as PLCs, RTUs, sensors, and actuators in automation systems.`,
+			Ports: []uint16{
+				502,
+			},
+			Probes: []UdpProbe{
+				{
+					Slug:        "modbus:read-coils",
+					Name:        "Modbus read coils request",
+					Service:     "modbus",
+					EncodedData: "AAEAAAAGAQEAAAAB",
+				},
+			},
+			Tags: []string{
+				"iot",
+			},
+			References: []string{
+				"https://www.speedguide.net/port.php?port=502",
+				"https://en.wikipedia.org/wiki/Modbus",
+			},
+		},
 
 		/*
 			"epl": {
