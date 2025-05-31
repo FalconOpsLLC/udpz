@@ -32,7 +32,7 @@ UDPz aims to fill this gap by providing a robust solution that can be easily int
 
 1. Clone the repository:
 ```sh
-git clone https://github.com/FalconOps-Cybersecurity/udpz.git
+git clone https://github.com/FalconOpsLLC/udpz.git
 cd udpz
 ```
 
@@ -52,9 +52,17 @@ udpz [flags] [targets ...]
 
 ### Standard Installation
 
+#### `go install`
+
+```sh
+go install -ldflags="-s -w" github.com/FalconOpsLLC/udpz@latest
+```
+
+#### Manual Installation
+
 1. Clone the repository:
 ```sh
-git clone https://github.com/FalconOps-Cybersecurity/udpz.git
+git clone https://github.com/FalconOpsLLC/udpz.git
 cd udpz
 ```
 

@@ -118,7 +118,7 @@ var rootCmd = &cobra.Command{
   ┗┛  ┻┛  ┣┛  ┗┛
 
   Author: Bryan McNulty (@bryanmcnulty)
-  Source: https://github.com/FalconOps-Cybersecurity/udpz`,
+  Source: https://github.com/FalconOpsLLC/udpz`,
 
 	RunE: func(cmd *cobra.Command, targets []string) (err error) {
 

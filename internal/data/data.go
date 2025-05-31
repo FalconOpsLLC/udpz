@@ -751,6 +751,7 @@ var (
 			Tags: []string{
 				"common",
 				"internet",
+				"ics",
 			},
 			References: []string{
 				"https://www.speedguide.net/port.php?port=161",
@@ -972,6 +973,39 @@ var (
 				"https://wikipedia.org/wiki/Kerberos_(protocol)",
 			},
 		},
+		"knx": {
+			Slug:        "knx",
+			NameShort:   "KNX",
+			Name:        "KNXNet/IP (Konnex)",
+			Description: "KNXnet/IP extends the KNX (Konnex) protocol to IP networks allowing for remote access to KNX installations over Ethernet/WiFi and integration with IP-based systems",
+			Ports: []uint16{
+				3671,
+			},
+			Probes: []UdpProbe{
+				/*
+					{
+						Slug: "knx:search",
+						Name: "KNX Search Request",
+						Service: "knx",
+						EncodedData: "BhACAwAOCAHAqGQN8Q8=",
+					},
+				*/
+				{
+					Slug:        "knx:tunnel",
+					Name:        "KNX tunnel connect request",
+					Service:     "knx",
+					EncodedData: "BhACBQAaCAEAAAAAAAAIAQAAAAAAAAQEAgA=",
+				},
+			},
+			Tags: []string{
+				"iot",
+				"ics",
+			},
+			References: []string{
+				"https://github.com/alexander-zimmermann/tcpdump/blob/main/knx.pcap",
+				"https://en.wikipedia.org/wiki/KNX",
+			},
+		},
 		"lantronix": {
 			Slug:        "lantronix",
 			NameShort:   "Lantronix",
@@ -1011,6 +1045,12 @@ var (
 					Name:        "IKE generic",
 					Service:     "ike",
 					EncodedData: "W15kwD6ZtREAAAAAAAAAAAEQAgAAAAAAAAABUAAAATQAAAABAAAAAQAAASgBAQAIAwAAJAEB",
+				},
+				{
+					Slug:        "ike:malformed",
+					Name:        "IKE malformed request",
+					Service:     "ike",
+					EncodedData: "AA==",
 				},
 			},
 			Tags: []string{
@@ -1328,6 +1368,55 @@ var (
 				"https://github.com/ITI/ICS-Security-Tools/blob/master/pcaps/profinet/profinet.pcap",
 			},
 		},
+		"mqtt-sn": {
+			Slug:        "mqtt-sn",
+			NameShort:   "MQTT-SN",
+			Name:        "MQTT-SN Discovery",
+			Description: "UDP-based MQTT-SN (Sensor Network) protocol for lightweight publish/subscribe messaging on constrained devices.",
+			Ports: []uint16{
+				1884,
+				1885,
+			},
+			Probes: []UdpProbe{
+				{
+					Slug:        "mqtt-sn:searchgw",
+					Name:        "MQTT-SN SEARCHGW",
+					Service:     "mqtt-sn",
+					EncodedData: "AwEB", // [0x03, 0x01, 0x01]: Length=3, MsgType=SEARCHGW(1), Radius=1
+				},
+			},
+			Tags: []string{
+				"iot",
+			},
+			References: []string{
+				"https://docs.oasis-open.org/mqtt/mqtt-sn/v1.2/mqtt-sn-v1.2.html",
+			},
+		},
+		"modbus": {
+			Slug:        "modbus",
+			NameShort:   "Modbus",
+			Name:        "Modbus over UDP",
+			Description: `Modbus protocol over UDP for connectionless access to registers and coils on industrial devices such as PLCs, RTUs, sensors, and actuators in automation systems.`,
+			Ports: []uint16{
+				502,
+			},
+			Probes: []UdpProbe{
+				{
+					Slug:        "modbus:read-coils",
+					Name:        "Modbus read coils request",
+					Service:     "modbus",
+					EncodedData: "AAEAAAAGAQEAAAAB",
+				},
+			},
+			Tags: []string{
+				"iot",
+			},
+			References: []string{
+				"https://www.speedguide.net/port.php?port=502",
+				"https://en.wikipedia.org/wiki/Modbus",
+			},
+		},
+
 		/*
 			"epl": {
 				Slug:        "epl",
