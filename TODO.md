@@ -13,6 +13,10 @@
 - Option to specify explicit DNS resolvers
 - Different performance defaults for Docker container (highler max open file descriptors)
 
+## Probes
+
+[ ] Fieldbus HSE
+
 ## Complete ^-^
 
 - Target CIDR support

@@ -171,15 +171,18 @@ The target argument(s) can be an IP address, hostname, CIDR, or file(s) containi
 | Factory Interface Network Service (FINS) | 9600 | fins:data-read |
 | Highway Addressable Remote Transducer Industrial Protocol | 5094 | hart-ip:generic |
 | HID Discovery Protocol | 4070 | hid-discovery:generic |
-| Internet Key Exchange (IKE) | 500, 4500 | ike:generic |
+| Internet Key Exchange (IKE) | 500, 4500 | ike:generic, ike:malformed |
 | Intelligent Platform Management Interface (IPMI) | 623 | ipmi:rmcp |
 | Kerberos Key Distribution Center (KDC) | 88 | kerberos:asreq |
+| KNXNet/IP (Konnex) | 3671 | knx:tunnel |
 | Layer 2 Tunneling Protocol (L2TP) | 1701, 1702 | l2tp:generic |
 | Lantronix Discovery | 30718 | lantronix:search |
 | Multicast Domain Name System (mDNS) | 5353 | mdns:reverse |
 | Mitsubishi MELSEC-Q | 5006, 5001, 5007 | melsec-q:getcpuinfo |
 | Memcache | 11211 | memcache:version, memcache:stats |
+| Modbus over UDP | 502 | modbus:read-coils |
 | Moxa NPort | 4800, 4001 | moxa-nport:enum |
+| MQTT-SN Discovery | 1884, 1885 | mqtt-sn:searchgw |
 | Microsoft Windows Remote Procedure Call (MSRPC) | 135 | msrpc:ncadg-ip-udp |
 | Microsoft Structured Query Language (SQL) Server | 1434 | mssql:ping |
 | Network Address Translation Port Mapping Protocol (NAT-PMP) | 5351 | nat-pmp:address |
