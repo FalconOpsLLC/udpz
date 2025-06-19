@@ -1,7 +1,4 @@
 /udpz
-/dist
-/.idea
 /.local
 /*.exe
-/*.pcap
-/*.pcapng
+/dist
