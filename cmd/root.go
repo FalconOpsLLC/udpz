@@ -122,7 +122,7 @@ func init() {
 var rootCmd = &cobra.Command{
 	Use:     "udpz [flags] [IP|hostname|CIDR|file ...]",
 	Short:   "Speedy probe-oriented UDP port scanner",
-	Version: "0.1.3",
+	Version: "0.1.5",
 	Long: `
   ┳┳  ┳┓  ┏┓  ┏┓
   ┃┃━━┃┃━━┃┃━━┏┛
