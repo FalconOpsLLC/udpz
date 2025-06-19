@@ -115,6 +115,8 @@ func init() {
 	// [dev] Debugging
 	rootCmd.Flags().StringVar(&cpuProfileOutputFileName, "cpu-profile", cpuProfileOutputFileName, "Output CPU performance results to file")
 	rootCmd.Flags().StringVar(&memProfileOutputFileName, "mem-profile", memProfileOutputFileName, "Output memory performance results to file")
+	rootCmd.Flags().MarkHidden("cpu-profile")
+	rootCmd.Flags().MarkHidden("mem-profile")
 }
 
 var rootCmd = &cobra.Command{
