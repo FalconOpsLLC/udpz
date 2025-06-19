@@ -1416,7 +1416,31 @@ var (
 				"https://en.wikipedia.org/wiki/Modbus",
 			},
 		},
-
+		"wireguard": {
+			Slug:        "wireguard",
+			NameShort:   "WireGuard",
+			Name:        "WireGuard",
+			Description: `WireGuard is a minimalist UDP-based VPN protocol that uses modern cryptography (Curve25519, ChaCha20-Poly1305) for efficient, secure tunneling.`,
+			Ports: []uint16{
+				51820,
+			},
+			Probes: []UdpProbe{
+				{
+					Slug:        "wireguard:handshake",
+					Name:        "WireGuard handshake init request",
+					Service:     "wireguard",
+					EncodedData: "AQAAAOEN8GbEbQPQlUlP+qBUR0zVw+87ONU0q8hi5HpoAsQFzzaMjU57vGPEptGvdnZM99Nc/IdbDCkkLsGs7dlUp+mCB4gNQM9maKevvKlhhDfaw6SwOTDNpWro2ZQuAwPMIbmyWRJkWxbK+JNO4ICxF5Jp0ioTfzcByg/ggCu2FsRUpMYZ2qsgk8ExTOQwDJ7LQw==",
+				},
+			},
+			Tags: []string{
+				"internet",
+				"iot",
+			},
+			References: []string{
+				"https://www.wireguard.com/",
+				"https://www.rfc-editor.org/rfc/rfc9096.html",
+			},
+		},
 		/*
 			"epl": {
 				Slug:        "epl",
