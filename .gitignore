@@ -1,4 +1,10 @@
 /udpz
-/.local
-/*.exe
 /dist
+/.idea
+go.work
+go.work.sum
+udpz.exe
+.local
+*.exe
+*.pcap
+*.pcapng
