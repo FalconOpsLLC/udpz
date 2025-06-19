@@ -20,7 +20,7 @@ builds:
       - arm
 
 upx:
-  - enabled: true
+  - enabled: false
     goos: [ linux ]
     compress: best
     lzma: true
