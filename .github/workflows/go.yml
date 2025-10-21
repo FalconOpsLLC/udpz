@@ -1,0 +1,39 @@
+# This workflow will build a golang project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
+# Adapted from https://github.com/RedTeamPentesting/adauth/blob/main/.github/workflows/check.yml :)
+
+name: Go
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go-version: [ '1.20', '1.21', '1.22', '1.23', '1.24', '1.25' ]
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Go ${{ matrix.go-version }}
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ matrix.go-version }}
+
+      - name: Lint
+        uses: golangci/golangci-lint-action@v3
+        with:
+          version: v1.64
+          args: --verbose --timeout 5m
+
+      - name: Check go.mod
+        run: |
+          echo "check if go.mod is up to date"
+          go mod tidy
+          git diff --exit-code go.mod
+
+      - name: Check build and execution
+        run: go run ./... --version
+
+      - name: Test
+        run: go test -v ./...
